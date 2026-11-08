@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>والدین خرچ اور بل ٹریکر | Parents Expense &amp; Bill Tracker</title>
+<meta name="description" content="A simple, premium, offline expense and bill tracker for parents. والدین کے لیے آسان خرچ اور بل ٹریکر — مکمل آف لائن، ڈیٹا آپ کے آلے پر محفوظ رہتا ہے۔">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">🏠</div>
+    <div>
+      <h1 data-i18n="appTitle">والدین خرچ اور بل ٹریکر</h1>
+      <p class="subtitle" data-i18n="appSubtitle">گھر کا پیسہ، آسان طریقے سے — مکمل آف لائن</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <div class="lang-toggle" role="group" aria-label="Language / زبان">
+      <button type="button" id="langUr" class="lang-btn active">اردو</button>
+      <button type="button" id="langEn" class="lang-btn">English</button>
+    </div>
+    <button type="button" class="btn btn-light" id="demoBtnTop" onclick="loadDemoData()">🎁 <span data-i18n="demoData">ڈیمو ڈیٹا</span></button>
+  </div>
+</header>
+
+<nav class="quick-nav" aria-label="Sections">
+  <a href="#dashboard">📊 <span data-i18n="navDashboard">خلاصہ</span></a>
+  <a href="#incomeSection">💰 <span data-i18n="navIncome">آمدنی</span></a>
+  <a href="#expenseSection">🛒 <span data-i18n="navExpenses">خرچے</span></a>
+  <a href="#billsSection">🧾 <span data-i18n="navBills">بل</span></a>
+  <a href="#meterSection">⚡ <span data-i18n="navMeter">میٹر</span></a>
+  <a href="#goalsSection">🎯 <span data-i18n="navGoals">بچت</span></a>
+  <a href="#settingsSection">⚙️ <span data-i18n="navSettings">ترتیبات</span></a>
+</nav>
+
+<main class="container">
+  <p class="privacy-note">🔒 <span data-i18n="privacyNote">آپ کا ڈیٹا صرف اسی آلے پر محفوظ رہتا ہے۔ کوئی انٹرنیٹ، کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔</span></p>
+
+  <!-- Month picker + reminders -->
+  <section class="card month-bar" id="dashboard">
+    <div>
+      <label for="monthPicker" data-i18n="chooseMonth">مہینہ منتخب کریں</label>
+      <input type="month" id="monthPicker" value="2026-11">
+    </div>
+    <div class="month-nav">
+      <button type="button" class="btn btn-light" onclick="shiftMonth(-1)">‹ <span data-i18n="prevMonth">پچھلا</span></button>
+      <button type="button" class="btn btn-light" onclick="goCurrentMonth()"><span data-i18n="thisMonth">اس مہینہ</span></button>
+      <button type="button" class="btn btn-light" onclick="shiftMonth(1)"><span data-i18n="nextMonth">اگلا</span> ›</button>
+    </div>
+  </section>
+
+  <div id="remindersBox" class="reminders" aria-live="polite"></div>
+
+  <!-- Summary -->
+  <section class="summary-grid" aria-label="Monthly summary">
+    <div class="stat-card income-card"><span class="stat-icon">💰</span><span class="stat-label" data-i18n="totalIncome">کل آمدنی</span><strong id="sumIncome">Rs 0</strong><small id="sumIncomeCount"></small></div>
+    <div class="stat-card expense-card"><span class="stat-icon">🛒</span><span class="stat-label" data-i18n="totalExpenses">کل خرچے</span><strong id="sumExpenses">Rs 0</strong><small id="sumExpenseCount"></small></div>
+    <div class="stat-card bill-card"><span class="stat-icon">🧾</span><span class="stat-label" data-i18n="totalBills">کل بل</span><strong id="sumBills">Rs 0</strong><small id="sumBillCount"></small></div>
+    <div class="stat-card balance-card"><span class="stat-icon">💵</span><span class="stat-label" data-i18n="balanceLeft">باقی رقم</span><strong id="sumBalance">Rs 0</strong><small id="balanceNote"></small></div>
+  </section>
+
+  <!-- Charts -->
+  <section class="card">
+    <h2>📊 <span data-i18n="chartsTitle">اس مہینے کی تصویر</span></h2>
+    <div class="charts">
+      <div class="chart-box">
+        <h3 data-i18n="expensesByCategory">خرچے — زمرہ کے حساب سے</h3>
+        <div id="barChart" class="bar-chart"></div>
+      </div>
+      <div class="chart-box">
+        <h3 data-i18n="moneySplit">پیسہ کہاں گیا؟</h3>
+        <div class="donut-wrap">
+          <div id="donutChart" class="donut" role="img" aria-label="Money split chart"><span id="donutCenter">Rs 0</span></div>
+          <ul id="donutLegend" class="legend"></ul>
+        </div>
+      </div>
+    </div>
+    <p class="hint" id="chartHint"></p>
+  </section>
+
+  <!-- INCOME -->
+  <section class="card" id="incomeSection">
+    <h2>💰 <span data-i18n="incomeTitle">آمدنی شامل کریں</span></h2>
+    <form id="incomeForm" class="form-grid">
+      <div class="field"><label for="incSource" data-i18n="source">ذریعہ</label>
+        <select id="incSource"><option value="salary" data-i18n="salary">تنخواہ</option><option value="pension" data-i18n="pension">پنشن</option><option value="business" data-i18n="business">کاروبار</option><option value="other" data-i18n="other">دیگر</option></select></div>
+      <div class="field"><label for="incAmount" data-i18n="amount">رقم (روپے)</label><input id="incAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="50000" required></div>
+      <div class="field"><label for="incDate" data-i18n="date">تاریخ</label><input id="incDate" type="date" required></div>
+      <div class="field"><label for="incNote" data-i18n="noteOptional">نوٹ (اختیاری)</label><input id="incNote" type="text" maxlength="100" data-i18n-ph="notePh" placeholder="مثلاً نومبر کی تنخواہ"></div>
+      <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="addIncome">آمدنی شامل کریں</span></button>
+    </form>
+    <div class="table-wrap"><table class="table"><thead><tr><th data-i18n="date">تاریخ</th><th data-i18n="source">ذریعہ</th><th data-i18n="note">نوٹ</th><th data-i18n="amount">رقم</th><th></th></tr></thead><tbody id="incomeList"></tbody></table></div>
+    <p class="empty" id="incomeEmpty"></p>
+  </section>
+
+  <!-- EXPENSES -->
+  <section class="card" id="expenseSection">
+    <h2>🛒 <span data-i18n="expenseTitle">خرچہ شامل کریں</span></h2>
+    <form id="expenseForm" class="form-grid">
+      <div class="field"><label for="expCategory" data-i18n="category">زمرہ</label>
+        <select id="expCategory"><option value="groceries">🛒 <span data-i18n="catGroceries">کریانہ</span></option><option value="transport">🚌 <span data-i18n="catTransport">ٹرانسپورٹ</span></option><option value="medicine">💊 <span data-i18n="catMedicine">دوا</span></option><option value="school">🎒 <span data-i18n="catSchool">اسکول</span></option><option value="eating">🍽️ <span data-i18n="catEating">باہر کھانا</span></option><option value="other">📦 <span data-i18n="catOther">دیگر</span></option></select></div>
+      <div class="field"><label for="expAmount" data-i18n="amount">رقم (روپے)</label><input id="expAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="2000" required></div>
+      <div class="field"><label for="expDate" data-i18n="date">تاریخ</label><input id="expDate" type="date" required></div>
+      <div class="field"><label for="expMember" data-i18n="whoSpent">کس نے خرچ کیا؟</label><select id="expMember"></select></div>
+      <div class="field wide"><label for="expNote" data-i18n="noteOptional">نوٹ (اختیاری)</label><input id="expNote" type="text" maxlength="100" data-i18n-ph="expNotePh" placeholder="مثلاً سبزی، دال، چاول"></div>
+      <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="addExpense">خرچہ شامل کریں</span></button>
+    </form>
+    <div class="table-wrap"><table class="table"><thead><tr><th data-i18n="date">تاریخ</th><th data-i18n="category">زمرہ</th><th data-i18n="who">کون</th><th data-i18n="note">نوٹ</th><th data-i18n="amount">رقم</th><th></th></tr></thead><tbody id="expenseList"></tbody></table></div>
+    <p class="empty" id="expenseEmpty"></p>
+  </section>
+
+  <!-- BILLS -->
+  <section class="card" id="billsSection">
+    <h2>🧾 <span data-i18n="billsTitle">بل شامل کریں</span></h2>
+    <form id="billForm" class="form-grid">
+      <div class="field"><label for="billType" data-i18n="billType">بل کی قسم</label>
+        <select id="billType"><option value="electricity">⚡ <span data-i18n="billElectricity">بجلی</span></option><option value="gas">🔥 <span data-i18n="billGas">گیس</span></option><option value="water">💧 <span data-i18n="billWater">پانی</span></option><option value="internet">🌐 <span data-i18n="billInternet">انٹرنیٹ</span></option><option value="phone">📱 <span data-i18n="billPhone">فون</span></option><option value="rent">🏠 <span data-i18n="billRent">کرایہ</span></option><option value="other">📦 <span data-i18n="billOther">دیگر</span></option></select></div>
+      <div class="field"><label for="billAmount" data-i18n="amount">رقم (روپے)</label><input id="billAmount" type="number" min="0" step="1" inputmode="numeric" placeholder="8500" required></div>
+      <div class="field"><label for="billDue" data-i18n="dueDate">آخری تاریخ</label><input id="billDue" type="date" required></div>
+      <div class="field"><label for="billStatus" data-i18n="status">حالت</label><select id="billStatus"><option value="unpaid" data-i18n="unpaid">ادا نہیں ہوا</option><option value="paid" data-i18n="paid">ادا ہو گیا</option></select></div>
+      <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="addBill">بل شامل کریں</span></button>
+    </form>
+
+    <h3>🔮 <span data-i18n="predictionTitle">اگلے مہینے کا اندازہ</span></h3>
+    <p class="hint" data-i18n="predictionHint">پچھلے 3 مہینوں کی اوسط سے اندازہ لگایا جاتا ہے۔</p>
+    <div id="predictions" class="prediction-grid"></div>
+
+    <div class="table-wrap"><table class="table"><thead><tr><th data-i18n="billType">بل کی قسم</th><th data-i18n="dueDate">آخری تاریخ</th><th data-i18n="amount">رقم</th><th data-i18n="status">حالت</th><th></th></tr></thead><tbody id="billList"></tbody></table></div>
+    <p class="empty" id="billEmpty"></p>
+  </section>
+
+  <!-- METER -->
+  <section class="card" id="meterSection">
+    <h2>⚡ <span data-i18n="meterTitle">میٹر کی تصویر اور ریڈنگ</span></h2>
+    <p class="hint" data-i18n="meterHint">میٹر کی تصویر لیں، ریڈنگ لکھیں — ایپ خود یونٹ اور اندازاً بل نکالے گی۔</p>
+    <form id="meterForm" class="form-grid">
+      <div class="field"><label for="meterType" data-i18n="meterType">میٹر</label><select id="meterType"><option value="electricity">⚡ <span data-i18n="billElectricity">بجلی</span></option><option value="gas">🔥 <span data-i18n="billGas">گیس</span></option></select></div>
+      <div class="field"><label for="meterReading" data-i18n="meterReading">ریڈنگ (نمبر)</label><input id="meterReading" type="number" min="0" step="0.01" inputmode="decimal" placeholder="12345" required></div>
+      <div class="field"><label for="meterDate" data-i18n="date">تاریخ</label><input id="meterDate" type="date" required></div>
+      <div class="field"><label for="meterPhoto" data-i18n="meterPhoto">میٹر کی تصویر</label><input id="meterPhoto" type="file" accept="image/*" capture="environment"></div>
+      <div class="field wide"><img id="meterPreview" class="meter-preview" alt="" hidden></div>
+      <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="saveReading">ریڈنگ محفوظ کریں</span></button>
+    </form>
+    <div id="meterCompare" class="meter-compare"></div>
+    <div id="meterList" class="meter-grid"></div>
+    <p class="empty" id="meterEmpty"></p>
+  </section>
+
+  <!-- GOALS + FAMILY + RECURRING -->
+  <div class="two-col">
+    <section class="card" id="goalsSection">
+      <h2>🎯 <span data-i18n="goalsTitle">بچت کے اہداف</span></h2>
+      <form id="goalForm" class="form-grid">
+        <div class="field"><label for="goalName" data-i18n="goalName">ہدف کا نام</label><input id="goalName" type="text" maxlength="60" placeholder="حج / نیا فریج" required></div>
+        <div class="field"><label for="goalTarget" data-i18n="targetAmount">مطلوبہ رقم (روپے)</label><input id="goalTarget" type="number" min="1" step="1" inputmode="numeric" placeholder="500000" required></div>
+        <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="addGoal">ہدف بنائیں</span></button>
+      </form>
+      <div id="goalList" class="goal-list"></div>
+      <p class="empty" id="goalEmpty"></p>
+    </section>
+
+    <section class="card" id="familySection">
+      <h2>👨‍👩‍👧‍👦 <span data-i18n="familyTitle">خاندان کے افراد</span></h2>
+      <form id="memberForm" class="form-grid">
+        <div class="field"><label for="memberName" data-i18n="memberName">نام</label><input id="memberName" type="text" maxlength="50" placeholder="ابو / امی / بیٹا" required></div>
+        <div class="field"><label for="memberRole" data-i18n="memberRole">رشتہ</label><input id="memberRole" type="text" maxlength="50" placeholder="والد / والدہ"></div>
+        <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="addMember">فرد شامل کریں</span></button>
+      </form>
+      <ul id="memberList" class="member-list"></ul>
+      <p class="empty" id="memberEmpty"></p>
+
+      <h3>🔁 <span data-i18n="recurringTitle">ہر مہینے والے خرچے</span></h3>
+      <form id="recurringForm" class="form-grid">
+        <div class="field"><label for="recName" data-i18n="recName">نام</label><input id="recName" type="text" maxlength="60" placeholder="انٹرنیٹ / دودھ والا" required></div>
+        <div class="field"><label for="recAmount" data-i18n="amount">رقم (روپے)</label><input id="recAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="3500" required></div>
+        <div class="field"><label for="recCategory" data-i18n="category">زمرہ</label><select id="recCategory"><option value="groceries">🛒 کریانہ</option><option value="transport">🚌 ٹرانسپورٹ</option><option value="medicine">💊 دوا</option><option value="school">🎒 اسکول</option><option value="eating">🍽️ باہر کھانا</option><option value="other">📦 دیگر</option></select></div>
+        <button type="submit" class="btn btn-primary big-btn">＋ <span data-i18n="addRecurring">شامل کریں</span></button>
+      </form>
+      <div id="recurringList"></div>
+      <p class="hint" id="recurringHint"></p>
+    </section>
+  </div>
+
+  <!-- SETTINGS / EXPORT -->
+  <section class="card" id="settingsSection">
+    <h2>⚙️ <span data-i18n="settingsTitle">ترتیبات، بیک اپ اور ڈیٹا</span></h2>
+    <div class="settings-grid">
+      <div class="field"><label for="rateElectricity" data-i18n="rateElectricity">بجلی — فی یونٹ قیمت (روپے)</label><input id="rateElectricity" type="number" min="0" step="0.5" value="35"></div>
+      <div class="field"><label for="rateGas" data-i18n="rateGas">گیس — فی یونٹ قیمت (روپے)</label><input id="rateGas" type="number" min="0" step="0.5" value="25"></div>
+      <label class="check-row"><input type="checkbox" id="remindersToggle" checked> <span data-i18n="remindersOn">بل کی یاد دہانیاں دکھائیں</span></label>
+      <label class="check-row"><input type="checkbox" id="demoToggleNote" checked disabled> <span data-i18n="offlineNote">انٹرنیٹ کے بغیر کام کرتا ہے — ڈیٹا اسی آلے پر رہتا ہے</span></label>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" onclick="saveSettings()">💾 <span data-i18n="saveSettings">ترتیبات محفوظ کریں</span></button>
+      <button type="button" class="btn btn-light" onclick="exportJSON()">⬇️ JSON</button>
+      <button type="button" class="btn btn-light" onclick="exportCSV()">⬇️ CSV</button>
+      <label class="btn btn-light file-btn">⬆️ <span data-i18n="importBackup">بیک اپ واپس لائیں (JSON)</span><input type="file" id="importFile" accept="application/json,.json" hidden></label>
+    </div>
+    <div class="btn-row danger-zone">
+      <button type="button" class="btn btn-light" onclick="loadDemoData()">🎁 <span data-i18n="demoData">ڈیمو ڈیٹا لادیں</span></button>
+      <button type="button" class="btn btn-danger" onclick="clearDemoData()">🧹 <span data-i18n="clearDemo">ڈیمو ڈیٹا ہٹائیں</span></button>
+      <button type="button" class="btn btn-danger" onclick="clearAllData()">🗑️ <span data-i18n="clearAll">سب ڈیٹا صاف کریں</span></button>
+    </div>
+    <p class="hint" id="dataStats"></p>
+  </section>
+
+  <footer class="footer">
+    <p data-i18n="footerNote">والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا آپ کے آلے سے باہر نہیں جاتا۔</p>
+    <p class="small">Parents Expense &amp; Bill Tracker • Offline • localStorage • © 2026 Mr. Abdul Rahman Dogar • MIT License</p>
+  </footer>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
