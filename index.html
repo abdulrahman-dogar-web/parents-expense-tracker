@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>والدین خرچ اور بل ٹریکر | Parents Expense &amp; Bill Tracker</title>
-<meta name="description" content="A simple, premium, offline expense and bill tracker for parents. والدین کے لیے آسان خرچ اور بل ٹریکر — مکمل آف لائن، ڈیٹا آپ کے آلے پر محفوظ رہتا ہے۔">
+<meta name="description" content="A simple, premium, offline expense and bill tracker for parents. والدین کے لیے آسان خرچ اور بل ٹریکر — سرور سے سنک ہوتا ہے، ڈیٹا کسی بھی آلے پر دستیاب ہے۔">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="logo" aria-hidden="true">🏠</div>
     <div>
       <h1 data-i18n="appTitle">والدین خرچ اور بل ٹریکر</h1>
-      <p class="subtitle" data-i18n="appSubtitle">گھر کا پیسہ، آسان طریقے سے — مکمل آف لائن</p>
+      <p class="subtitle" data-i18n="appSubtitle">گھر کا پیسہ، آسان طریقے سے — سرور سے سنک ہوتا ہے</p>
     </div>
   </div>
   <div class="top-actions">
@@ -37,7 +37,7 @@
 </nav>
 
 <main class="container">
-  <p class="privacy-note">🔒 <span data-i18n="privacyNote">آپ کا ڈیٹا صرف اسی آلے پر محفوظ رہتا ہے۔ کوئی انٹرنیٹ، کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔</span></p>
+  <p class="privacy-note">🔒 <span data-i18n="privacyNote">آپ کا ڈیٹا سرور پر محفوظ ہوتا ہے، کسی بھی آلے پر کام کرتا ہے۔ کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔</span></p>
 
   <!-- Month picker + reminders -->
   <section class="card month-bar" id="dashboard">
@@ -191,7 +191,7 @@
       <div class="field"><label for="rateElectricity" data-i18n="rateElectricity">بجلی — فی یونٹ قیمت (روپے)</label><input id="rateElectricity" type="number" min="0" step="0.5" value="35"></div>
       <div class="field"><label for="rateGas" data-i18n="rateGas">گیس — فی یونٹ قیمت (روپے)</label><input id="rateGas" type="number" min="0" step="0.5" value="25"></div>
       <label class="check-row"><input type="checkbox" id="remindersToggle" checked> <span data-i18n="remindersOn">بل کی یاد دہانیاں دکھائیں</span></label>
-      <label class="check-row"><input type="checkbox" id="demoToggleNote" checked disabled> <span data-i18n="offlineNote">انٹرنیٹ کے بغیر کام کرتا ہے — ڈیٹا اسی آلے پر رہتا ہے</span></label>
+      <label class="check-row"><input type="checkbox" id="demoToggleNote" checked disabled> <span data-i18n="offlineNote">کسی بھی آلے پر کام کرتا ہے — ڈیٹا سرور پر محفوظ ہوتا ہے</span></label>
     </div>
     <div class="btn-row">
       <button type="button" class="btn btn-primary" onclick="saveSettings()">💾 <span data-i18n="saveSettings">ترتیبات محفوظ کریں</span></button>
@@ -225,7 +225,7 @@
 
   <footer class="footer">
     <p data-i18n="footerNote">والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا آپ کے آلے سے باہر نہیں جاتا۔</p>
-    <p class="small">Parents Expense &amp; Bill Tracker • Offline • localStorage • © 2026 Mr. Abdul Rahman Dogar • MIT License</p>
+    <p class="small">Parents Expense &amp; Bill Tracker • Server-synced • © 2026 Mr. Abdul Rahman Dogar • MIT License</p>
   </footer>
 </main>
 

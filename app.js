@@ -16,9 +16,9 @@ var BILL_TYPES = ['electricity', 'gas', 'water', 'internet', 'phone', 'rent', 'o
 /* ---------- i18n ---------- */
 var I18N = {
   ur: {
-    appTitle: 'والدین خرچ اور بل ٹریکر', appSubtitle: 'گھر کا پیسہ، آسان طریقے سے — مکمل آف لائن',
+    appTitle: 'والدین خرچ اور بل ٹریکر', appSubtitle: 'گھر کا پیسہ، آسان طریقے سے — سرور سے سنک ہوتا ہے',
     demoData: 'ڈیمو ڈیٹا', navDashboard: 'خلاصہ', navIncome: 'آمدنی', navExpenses: 'خرچے', navBills: 'بل', navMeter: 'میٹر', navGoals: 'بچت', navSettings: 'ترتیبات',
-    privacyNote: 'آپ کا ڈیٹا صرف اسی آلے پر محفوظ رہتا ہے۔ کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔ سنک صرف تب ہوتا ہے جب آپ خود سنک کوڈ بنائیں یا لادیں۔',
+    privacyNote: 'آپ کا ڈیٹا سرور پر محفوظ ہوتا ہے، تو کسی بھی آلے پر کام کرتا ہے۔ کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔ سنک صرف تب ہوتا ہے جب آپ خود سنک کوڈ بنائیں یا لادیں۔',
     chooseMonth: 'مہینہ منتخب کریں', prevMonth: 'پچھلا', thisMonth: 'اس مہینہ', nextMonth: 'اگلا',
     totalIncome: 'کل آمدنی', totalExpenses: 'کل خرچے', totalBills: 'کل بل', balanceLeft: 'باقی رقم',
     chartsTitle: 'اس مہینے کی تصویر', expensesByCategory: 'خرچے — زمرہ کے حساب سے', moneySplit: 'پیسہ کہاں گیا؟',
@@ -36,7 +36,7 @@ var I18N = {
     familyTitle: 'خاندان کے افراد', memberName: 'نام', memberRole: 'رشتہ', addMember: 'فرد شامل کریں',
     recurringTitle: 'ہر مہینے والے خرچے', recName: 'نام', addRecurring: 'شامل کریں',
     settingsTitle: 'ترتیبات، بیک اپ اور ڈیٹا', rateElectricity: 'بجلی — فی یونٹ قیمت (روپے)', rateGas: 'گیس — فی یونٹ قیمت (روپے)',
-    remindersOn: 'بل کی یاد دہانیاں دکھائیں', offlineNote: 'انٹرنیٹ کے بغیر کام کرتا ہے — ڈیٹا اسی آلے پر رہتا ہے',
+    remindersOn: 'بل کی یاد دہانیاں دکھائیں', offlineNote: 'کسی بھی آلے پر کام کرتا ہے — ڈیٹا سرور پر محفوظ ہوتا ہے',
     saveSettings: 'ترتیبات محفوظ کریں', importBackup: 'بیک اپ واپس لائیں (JSON)', clearDemo: 'ڈیمو ڈیٹا ہٹائیں', clearAll: 'سب ڈیٹا صاف کریں',
     navSync: 'سنک', syncTitle: 'دوسرے آلے پر کھولیں / سنک', syncDesc: 'اپنا مکمل ڈیٹا دوسرے موبائل یا کمپیوٹر پر کھولنے کے لیے سنک کوڈ بنائیں۔ کوڈ کسی اجنبی کے ساتھ شیئر نہ کریں — جس کے پاس کوڈ ہے وہ آپ کا پورا ڈیٹا کھول سکتا ہے۔',
     createSyncCode: 'سنک کوڈ بنائیں', loadFromCode: 'کوڈ سے ڈیٹا لادیں', syncCodeLabel: 'آپ کا سنک کوڈ',
@@ -68,9 +68,9 @@ var I18N = {
     totalSaved: 'کل بچت', dataOnDevice: 'اندراجات اس آلے پر محفوظ ہیں۔'
   },
   en: {
-    appTitle: 'Parents Expense & Bill Tracker', appSubtitle: 'Household money, made simple — fully offline',
+    appTitle: 'Parents Expense & Bill Tracker', appSubtitle: 'Household money, made simple — synced to the server',
     demoData: 'Demo Data', navDashboard: 'Summary', navIncome: 'Income', navExpenses: 'Expenses', navBills: 'Bills', navMeter: 'Meter', navGoals: 'Savings', navSettings: 'Settings',
-    privacyNote: 'Your data stays only on this device. No account, no password. Sync only happens when you create or load a sync code.',
+    privacyNote: 'Your data is saved on the server, so it works on any device. No account, no password. Sync only happens when you create or load a sync code.',
     chooseMonth: 'Choose month', prevMonth: 'Previous', thisMonth: 'This Month', nextMonth: 'Next',
     totalIncome: 'Total Income', totalExpenses: 'Total Expenses', totalBills: 'Total Bills', balanceLeft: 'Balance Left',
     chartsTitle: 'This Month at a Glance', expensesByCategory: 'Expenses — by Category', moneySplit: 'Where Did the Money Go?',
@@ -88,7 +88,7 @@ var I18N = {
     familyTitle: 'Family Members', memberName: 'Name', memberRole: 'Relation', addMember: 'Add Member',
     recurringTitle: 'Monthly Recurring Expenses', recName: 'Name', addRecurring: 'Add',
     settingsTitle: 'Settings, Backup & Data', rateElectricity: 'Electricity — price per unit (Rs)', rateGas: 'Gas — price per unit (Rs)',
-    remindersOn: 'Show bill due-date reminders', offlineNote: 'Works without internet — data stays on this device',
+    remindersOn: 'Show bill due-date reminders', offlineNote: 'Works on any device — data is saved on the server',
     saveSettings: 'Save Settings', importBackup: 'Restore Backup (JSON)', clearDemo: 'Remove Demo Data', clearAll: 'Clear All Data',
     navSync: 'Sync', syncTitle: 'Open on Another Device / Sync', syncDesc: 'Create a sync code to open your full data on another phone or computer. Do not share the code with strangers — anyone with the code can open your full data.',
     createSyncCode: 'Create Sync Code', loadFromCode: 'Load Data from Code', syncCodeLabel: 'Your sync code',
