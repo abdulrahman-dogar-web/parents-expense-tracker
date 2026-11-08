@@ -46,7 +46,7 @@ var I18N = {
     syncFailed: 'سرور سے رابطہ نہیں ہو سکا — انٹرنیٹ چیک کر کے دوبارہ کوشش کریں۔',
     confirmLoadSync: 'کیا اس آلے کا ڈیٹا سنک کوڈ والے ڈیٹا سے بدلنا ہے؟ اس آلے کا موجودہ ڈیٹا مٹ جائے گا۔',
     lastSynced: 'آخری سنک', syncNever: 'ابھی تک سنک نہیں ہوا',
-    footerNote: 'والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا آپ کے آلے پر رہتا ہے، جب تک آپ خود سنک کوڈ سے شیئر نہ کریں۔',
+    footerNote: 'والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا سرور پر محفوظ ہوتا ہے، تو کسی بھی آلے سے دستیاب ہے۔',
     entries: 'اندراجات', noDataYet: 'اس مہینے ابھی کوئی ڈیٹا نہیں — اوپر سے شامل کریں۔',
     noExpensesYet: 'اس مہینے ابھی کوئی خرچہ نہیں۔', noBillsYet: 'اس مہینے ابھی کوئی بل نہیں۔',
     noGoalsYet: 'ابھی کوئی ہدف نہیں — اوپر سے بنائیں۔', noMembersYet: 'ابھی کوئی فرد شامل نہیں۔',
@@ -65,7 +65,7 @@ var I18N = {
     unitsUsed: 'یونٹ استعمال ہوئے', estBill: 'اندازاً بل', fromReading: 'سے', toReading: 'تک',
     reading: 'ریڈنگ', noPhoto: 'تصویر نہیں', addRecurringThisMonth: 'اس مہینے کے ہر مہینے والے خرچے شامل کریں',
     recurringAdded: 'ہر مہینے والے خرچے شامل کر دیے گئے ✓', recurringHintText: 'یہ خرچے ہر مہینے خود بخود یاد دلائے جائیں گے۔',
-    totalSaved: 'کل بچت', dataOnDevice: 'اندراجات اس آلے پر محفوظ ہیں۔'
+    totalSaved: 'کل بچت', dataOnDevice: 'اندراجات سرور پر محفوظ ہیں۔'
   },
   en: {
     appTitle: 'Parents Expense & Bill Tracker', appSubtitle: 'Household money, made simple — synced to the server',
@@ -98,7 +98,7 @@ var I18N = {
     syncFailed: 'Could not reach the server — check your internet and try again.',
     confirmLoadSync: 'Replace this device’s data with the data from the sync code? The current data on this device will be erased.',
     lastSynced: 'Last synced', syncNever: 'Not synced yet',
-    footerNote: 'Parents Expense & Bill Tracker — for our parents, with love. Your data stays on your device unless you share it yourself with a sync code.',
+    footerNote: 'Parents Expense & Bill Tracker — for our parents, with love. Your data is saved on the server, so it is available from any device.',
     entries: 'entries', noDataYet: 'No data this month yet — add some above.',
     noExpensesYet: 'No expenses this month yet.', noBillsYet: 'No bills this month yet.',
     noGoalsYet: 'No goals yet — create one above.', noMembersYet: 'No members added yet.',
@@ -117,7 +117,7 @@ var I18N = {
     unitsUsed: 'Units used', estBill: 'Estimated bill', fromReading: 'from', toReading: 'to',
     reading: 'Reading', noPhoto: 'No photo', addRecurringThisMonth: 'Add this month’s recurring expenses',
     recurringAdded: 'Recurring expenses added ✓', recurringHintText: 'These expenses will be suggested again every month.',
-    totalSaved: 'Total saved', dataOnDevice: 'entries stored on this device.'
+    totalSaved: 'Total saved', dataOnDevice: 'entries saved on the server.'
   }
 };
 
