@@ -157,3 +157,8 @@ html[dir="rtl"] .table th,html[dir="rtl"] .table td{text-align:right}
   .summary-grid{grid-template-columns:1fr}
   .stat-card strong{font-size:28px}
 }
+
+/* ---------- Sync section ---------- */
+.sync-code{font-size:22px;background:#eef4f0;border:2px dashed var(--line);border-radius:12px;padding:16px;text-align:center;margin:16px 0}
+.sync-code strong{font-size:32px;letter-spacing:5px}
+#syncStatus{font-weight:700}

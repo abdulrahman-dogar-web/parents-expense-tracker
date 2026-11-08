@@ -18,7 +18,7 @@ var I18N = {
   ur: {
     appTitle: 'والدین خرچ اور بل ٹریکر', appSubtitle: 'گھر کا پیسہ، آسان طریقے سے — مکمل آف لائن',
     demoData: 'ڈیمو ڈیٹا', navDashboard: 'خلاصہ', navIncome: 'آمدنی', navExpenses: 'خرچے', navBills: 'بل', navMeter: 'میٹر', navGoals: 'بچت', navSettings: 'ترتیبات',
-    privacyNote: 'آپ کا ڈیٹا صرف اسی آلے پر محفوظ رہتا ہے۔ کوئی انٹرنیٹ، کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔',
+    privacyNote: 'آپ کا ڈیٹا صرف اسی آلے پر محفوظ رہتا ہے۔ کوئی اکاؤنٹ، کوئی پاس ورڈ نہیں۔ سنک صرف تب ہوتا ہے جب آپ خود سنک کوڈ بنائیں یا لادیں۔',
     chooseMonth: 'مہینہ منتخب کریں', prevMonth: 'پچھلا', thisMonth: 'اس مہینہ', nextMonth: 'اگلا',
     totalIncome: 'کل آمدنی', totalExpenses: 'کل خرچے', totalBills: 'کل بل', balanceLeft: 'باقی رقم',
     chartsTitle: 'اس مہینے کی تصویر', expensesByCategory: 'خرچے — زمرہ کے حساب سے', moneySplit: 'پیسہ کہاں گیا؟',
@@ -38,7 +38,15 @@ var I18N = {
     settingsTitle: 'ترتیبات، بیک اپ اور ڈیٹا', rateElectricity: 'بجلی — فی یونٹ قیمت (روپے)', rateGas: 'گیس — فی یونٹ قیمت (روپے)',
     remindersOn: 'بل کی یاد دہانیاں دکھائیں', offlineNote: 'انٹرنیٹ کے بغیر کام کرتا ہے — ڈیٹا اسی آلے پر رہتا ہے',
     saveSettings: 'ترتیبات محفوظ کریں', importBackup: 'بیک اپ واپس لائیں (JSON)', clearDemo: 'ڈیمو ڈیٹا ہٹائیں', clearAll: 'سب ڈیٹا صاف کریں',
-    footerNote: 'والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا آپ کے آلے سے باہر نہیں جاتا۔',
+    navSync: 'سنک', syncTitle: 'دوسرے آلے پر کھولیں / سنک', syncDesc: 'اپنا مکمل ڈیٹا دوسرے موبائل یا کمپیوٹر پر کھولنے کے لیے سنک کوڈ بنائیں۔ کوڈ کسی اجنبی کے ساتھ شیئر نہ کریں — جس کے پاس کوڈ ہے وہ آپ کا پورا ڈیٹا کھول سکتا ہے۔',
+    createSyncCode: 'سنک کوڈ بنائیں', loadFromCode: 'کوڈ سے ڈیٹا لادیں', syncCodeLabel: 'آپ کا سنک کوڈ',
+    enterSyncCode: 'سنک کوڈ لکھیں', syncEnterCode: 'پہلے سنک کوڈ لکھیں۔',
+    syncCreated: 'سنک کوڈ بن گیا ✓ — اسے دوسرے آلے پر لکھ کر "کوڈ سے ڈیٹا لادیں" دبائیں۔',
+    syncLoaded: 'ڈیٹا سنک کوڈ سے لا دیا گیا ✓', syncNotFound: 'یہ کوڈ نہیں ملا — کوڈ دوبارہ چیک کریں۔',
+    syncFailed: 'سرور سے رابطہ نہیں ہو سکا — انٹرنیٹ چیک کر کے دوبارہ کوشش کریں۔',
+    confirmLoadSync: 'کیا اس آلے کا ڈیٹا سنک کوڈ والے ڈیٹا سے بدلنا ہے؟ اس آلے کا موجودہ ڈیٹا مٹ جائے گا۔',
+    lastSynced: 'آخری سنک', syncNever: 'ابھی تک سنک نہیں ہوا',
+    footerNote: 'والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا آپ کے آلے پر رہتا ہے، جب تک آپ خود سنک کوڈ سے شیئر نہ کریں۔',
     entries: 'اندراجات', noDataYet: 'اس مہینے ابھی کوئی ڈیٹا نہیں — اوپر سے شامل کریں۔',
     noExpensesYet: 'اس مہینے ابھی کوئی خرچہ نہیں۔', noBillsYet: 'اس مہینے ابھی کوئی بل نہیں۔',
     noGoalsYet: 'ابھی کوئی ہدف نہیں — اوپر سے بنائیں۔', noMembersYet: 'ابھی کوئی فرد شامل نہیں۔',
@@ -62,7 +70,7 @@ var I18N = {
   en: {
     appTitle: 'Parents Expense & Bill Tracker', appSubtitle: 'Household money, made simple — fully offline',
     demoData: 'Demo Data', navDashboard: 'Summary', navIncome: 'Income', navExpenses: 'Expenses', navBills: 'Bills', navMeter: 'Meter', navGoals: 'Savings', navSettings: 'Settings',
-    privacyNote: 'Your data stays only on this device. No internet, no account, no password.',
+    privacyNote: 'Your data stays only on this device. No account, no password. Sync only happens when you create or load a sync code.',
     chooseMonth: 'Choose month', prevMonth: 'Previous', thisMonth: 'This Month', nextMonth: 'Next',
     totalIncome: 'Total Income', totalExpenses: 'Total Expenses', totalBills: 'Total Bills', balanceLeft: 'Balance Left',
     chartsTitle: 'This Month at a Glance', expensesByCategory: 'Expenses — by Category', moneySplit: 'Where Did the Money Go?',
@@ -82,7 +90,15 @@ var I18N = {
     settingsTitle: 'Settings, Backup & Data', rateElectricity: 'Electricity — price per unit (Rs)', rateGas: 'Gas — price per unit (Rs)',
     remindersOn: 'Show bill due-date reminders', offlineNote: 'Works without internet — data stays on this device',
     saveSettings: 'Save Settings', importBackup: 'Restore Backup (JSON)', clearDemo: 'Remove Demo Data', clearAll: 'Clear All Data',
-    footerNote: 'Parents Expense & Bill Tracker — for our parents, with love. Your data never leaves your device.',
+    navSync: 'Sync', syncTitle: 'Open on Another Device / Sync', syncDesc: 'Create a sync code to open your full data on another phone or computer. Do not share the code with strangers — anyone with the code can open your full data.',
+    createSyncCode: 'Create Sync Code', loadFromCode: 'Load Data from Code', syncCodeLabel: 'Your sync code',
+    enterSyncCode: 'Enter sync code', syncEnterCode: 'Enter a sync code first.',
+    syncCreated: 'Sync code created ✓ — enter it on the other device and press "Load Data from Code".',
+    syncLoaded: 'Data loaded from the sync code ✓', syncNotFound: 'That code was not found — check the code and try again.',
+    syncFailed: 'Could not reach the server — check your internet and try again.',
+    confirmLoadSync: 'Replace this device’s data with the data from the sync code? The current data on this device will be erased.',
+    lastSynced: 'Last synced', syncNever: 'Not synced yet',
+    footerNote: 'Parents Expense & Bill Tracker — for our parents, with love. Your data stays on your device unless you share it yourself with a sync code.',
     entries: 'entries', noDataYet: 'No data this month yet — add some above.',
     noExpensesYet: 'No expenses this month yet.', noBillsYet: 'No bills this month yet.',
     noGoalsYet: 'No goals yet — create one above.', noMembersYet: 'No members added yet.',
@@ -127,6 +143,107 @@ function save() {
       toast(t('saved'));
     } catch (e2) { /* storage still full; data in memory only */ }
   }
+}
+
+/* ---------- sync (cross-device via KVdb, sync code) ----------
+   localStorage stays the local cache: every change still saves
+   locally first. The sync code is the bridge to another device:
+   "Create sync code" PUTs the full dataset under a random
+   6-character code; "Load from code" GETs it and replaces the
+   local data (after a confirm). No account, no password — anyone
+   with the code can load the data, so keep it private. */
+var SYNC_META_KEY = 'parentsExpenseTracker.sync.v1';
+function loadSyncMeta() {
+  try { return JSON.parse(localStorage.getItem(SYNC_META_KEY) || 'null') || {}; } catch (e) { return {}; }
+}
+function saveSyncMeta(m) {
+  try { localStorage.setItem(SYNC_META_KEY, JSON.stringify(m)); } catch (e) { /* storage blocked */ }
+}
+var syncMeta = (typeof localStorage !== 'undefined') ? loadSyncMeta() : {};
+var SYNC_CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; // no 0/O/1/I/L — easy to read aloud
+function makeSyncCode() {
+  var code = '';
+  var c = (typeof globalThis !== 'undefined' && globalThis.crypto) || null;
+  for (var i = 0; i < 6; i++) {
+    var r;
+    if (c && c.getRandomValues) { var a = new Uint32Array(1); c.getRandomValues(a); r = a[0] % SYNC_CODE_ALPHABET.length; }
+    else r = Math.floor(Math.random() * SYNC_CODE_ALPHABET.length);
+    code += SYNC_CODE_ALPHABET[r];
+  }
+  return code;
+}
+function buildSyncPayload(s) {
+  var src = s || state;
+  return { version: 1, app: 'parents-expense-tracker', exportedAt: new Date().toISOString(), state: JSON.parse(JSON.stringify(src)) };
+}
+function restoreSyncPayload(data) {
+  if (!data || typeof data !== 'object') return false;
+  var incoming = data.state || data; // also accept a bare state object
+  if (!incoming || !Array.isArray(incoming.incomes) || !Array.isArray(incoming.expenses) || !Array.isArray(incoming.bills)) return false;
+  state = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), incoming);
+  state.settings = Object.assign({}, DEFAULT_STATE.settings, incoming.settings || {});
+  return true;
+}
+function kvStore() {
+  if (typeof window !== 'undefined' && window.KVStore && window.APP_CONFIG) {
+    window.KVStore.configure(window.APP_CONFIG);
+    return window.KVStore;
+  }
+  return null;
+}
+function setSyncStatus(msg) {
+  var el = (typeof document !== 'undefined') ? document.getElementById('syncStatus') : null;
+  if (el) el.textContent = msg || '';
+}
+function renderSyncSection() {
+  if (typeof document === 'undefined') return;
+  var codeEl = document.getElementById('syncCodeDisplay'), valEl = document.getElementById('syncCodeValue');
+  if (codeEl && valEl) {
+    if (syncMeta.code) { valEl.textContent = syncMeta.code; codeEl.hidden = false; }
+    else codeEl.hidden = true;
+  }
+  var lastEl = document.getElementById('syncLast');
+  if (lastEl) {
+    lastEl.textContent = t('lastSynced') + ': ' + (syncMeta.lastSynced
+      ? new Date(syncMeta.lastSynced).toLocaleString()
+      : t('syncNever'));
+  }
+}
+async function createSyncCode() {
+  var kv = kvStore();
+  if (!kv) { setSyncStatus(t('syncFailed')); return false; }
+  var code = makeSyncCode();
+  var ok = await kv.put(code, buildSyncPayload());
+  if (ok) {
+    syncMeta.code = code;
+    syncMeta.lastSynced = new Date().toISOString();
+    saveSyncMeta(syncMeta);
+    renderSyncSection();
+    setSyncStatus(t('syncCreated'));
+    toast(t('syncCreated'));
+    return true;
+  }
+  setSyncStatus(t('syncFailed'));
+  return false;
+}
+async function loadFromCode() {
+  var input = (typeof document !== 'undefined') ? document.getElementById('syncCodeInput') : null;
+  var code = input ? input.value.trim().toUpperCase() : '';
+  if (!code) { setSyncStatus(t('syncEnterCode')); return false; }
+  if (typeof confirm === 'function' && !confirm(t('confirmLoadSync'))) return false;
+  var kv = kvStore();
+  if (!kv) { setSyncStatus(t('syncFailed')); return false; }
+  var data = await kv.get(code);
+  if (!data) { setSyncStatus(t('syncNotFound')); return false; }
+  if (!restoreSyncPayload(data)) { setSyncStatus(t('importFailed')); return false; }
+  save();
+  syncMeta.code = code;
+  syncMeta.lastSynced = new Date().toISOString();
+  saveSyncMeta(syncMeta);
+  applyI18n(); renderAll(); renderSyncSection();
+  setSyncStatus(t('syncLoaded'));
+  toast(t('syncLoaded'));
+  return true;
 }
 function t(key) { var lang = state.lang || 'ur'; return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
 function uid() { return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); }
@@ -213,6 +330,7 @@ function renderAll() {
   var rem = document.getElementById('remindersToggle'); if (rem) rem.checked = !!state.settings.reminders;
   setText('chartHint', expenses.length ? '' : t('noExpensesYet'));
   setText('recurringHint', t('recurringHintText'));
+  renderSyncSection();
 }
 
 function renderReminders() {
@@ -601,6 +719,8 @@ function bindForms() {
   $('importFile').addEventListener('change', function (e) {
     importBackup(e.target.files && e.target.files[0]); e.target.value = '';
   });
+  $('createSyncBtn').addEventListener('click', createSyncCode);
+  $('loadSyncBtn').addEventListener('click', loadFromCode);
 }
 
 if (typeof document !== 'undefined') {
@@ -609,5 +729,5 @@ if (typeof document !== 'undefined') {
 
 /* Node test exports — harmless in the browser */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { predictNextMonth: predictNextMonth, meterEstimate: meterEstimate, fmt: fmt };
+  module.exports = { predictNextMonth: predictNextMonth, meterEstimate: meterEstimate, fmt: fmt, makeSyncCode: makeSyncCode, buildSyncPayload: buildSyncPayload, restoreSyncPayload: restoreSyncPayload, getState: function () { return state; } };
 }

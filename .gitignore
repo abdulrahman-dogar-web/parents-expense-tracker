@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Local dev servers / test artefacts
+node_modules/
+dist/
+*.tmp
+
+# Personal backups exported from the app (never commit real household data)
+*backup*.json
+*backup*.csv
+parents-expense-tracker-backup.json
+parents-expense-tracker.csv

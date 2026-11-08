@@ -32,6 +32,7 @@
   <a href="#billsSection">🧾 <span data-i18n="navBills">بل</span></a>
   <a href="#meterSection">⚡ <span data-i18n="navMeter">میٹر</span></a>
   <a href="#goalsSection">🎯 <span data-i18n="navGoals">بچت</span></a>
+  <a href="#syncSection">🔄 <span data-i18n="navSync">سنک</span></a>
   <a href="#settingsSection">⚙️ <span data-i18n="navSettings">ترتیبات</span></a>
 </nav>
 
@@ -206,6 +207,22 @@
     <p class="hint" id="dataStats"></p>
   </section>
 
+  <!-- SYNC / CROSS-DEVICE -->
+  <section class="card" id="syncSection">
+    <h2>🔄 <span data-i18n="syncTitle">دوسرے آلے پر کھولیں / سنک</span></h2>
+    <p class="hint" data-i18n="syncDesc">اپنا مکمل ڈیٹا دوسرے موبائل یا کمپیوٹر پر کھولنے کے لیے سنک کوڈ بنائیں۔ کوڈ کسی اجنبی کے ساتھ شیئر نہ کریں — جس کے پاس کوڈ ہے وہ آپ کا پورا ڈیٹا کھول سکتا ہے۔</p>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" id="createSyncBtn">🔄 <span data-i18n="createSyncCode">سنک کوڈ بنائیں</span></button>
+    </div>
+    <p class="sync-code" id="syncCodeDisplay" hidden><span data-i18n="syncCodeLabel">آپ کا سنک کوڈ</span>: <strong id="syncCodeValue"></strong></p>
+    <div class="form-grid">
+      <div class="field"><label for="syncCodeInput" data-i18n="enterSyncCode">سنک کوڈ لکھیں</label><input id="syncCodeInput" type="text" maxlength="6" autocomplete="off" placeholder="ABC123" style="text-transform:uppercase"></div>
+      <button type="button" class="btn btn-primary big-btn" id="loadSyncBtn">⬇️ <span data-i18n="loadFromCode">کوڈ سے ڈیٹا لادیں</span></button>
+    </div>
+    <p class="hint" id="syncLast"></p>
+    <p class="hint" id="syncStatus" role="status" aria-live="polite"></p>
+  </section>
+
   <footer class="footer">
     <p data-i18n="footerNote">والدین خرچ اور بل ٹریکر — اپنے والدین کے لیے، محبت سے۔ ڈیٹا آپ کے آلے سے باہر نہیں جاتا۔</p>
     <p class="small">Parents Expense &amp; Bill Tracker • Offline • localStorage • © 2026 Mr. Abdul Rahman Dogar • MIT License</p>
@@ -213,6 +230,8 @@
 </main>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="config.js"></script>
+<script src="store.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

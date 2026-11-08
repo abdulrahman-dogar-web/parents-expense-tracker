@@ -1,9 +1,9 @@
 # 🏠 Parents Expense & Bill Tracker
 ### والدین خرچ اور بل ٹریکر
 
-A simple, premium, **offline** web app for a parent to track household money — income, expenses, bills, meter readings, savings goals and reminders. Big buttons, large text, Urdu + English. No account, no password, no internet needed. All data stays on the device (localStorage).
+A simple, premium, **offline** web app for a parent to track household money — income, expenses, bills, meter readings, savings goals and reminders. Big buttons, large text, Urdu + English. No account, no password. All data stays on the device (localStorage) unless you choose to share it with a **sync code** — see "Sync / دوسرے آلے پر کھولیں" below.
 
-> والدین کے لیے ایک آسان، خوبصورت اور مکمل آف لائن ایپ — گھر کی آمدنی، خرچے، بل، میٹر ریڈنگ، بچت کے اہداف اور یاد دہانیاں۔ بڑے بٹن، بڑا متن، اردو اور انگریزی۔ کوئی اکاؤنٹ نہیں، کوئی پاس ورڈ نہیں، ڈیٹا صرف آپ کے آلے پر رہتا ہے۔
+> والدین کے لیے ایک آسان، خوبصورت اور مکمل آف لائن ایپ — گھر کی آمدنی، خرچے، بل، میٹر ریڈنگ، بچت کے اہداف اور یاد دہانیاں۔ بڑے بٹن، بڑا متن، اردو اور انگریزی۔ کوئی اکاؤنٹ نہیں، کوئی پاس ورڈ نہیں، ڈیٹا صرف آپ کے آلے پر رہتا ہے — جب تک آپ خود سنک کوڈ سے دوسرے آلے پر نہ کھولیں۔
 
 ---
 
@@ -22,6 +22,7 @@ A simple, premium, **offline** web app for a parent to track household money —
 | 👨‍👩‍👧‍👦 Family members | Add family members, assign expenses to a member, see each member's total spending |
 | 🔁 Recurring expenses | Monthly recurring entries (e.g. internet, milkman) — one tap adds them all for the selected month |
 | ⬇️⬆️ Export / Import | Export all data as JSON (full backup) or CSV (spreadsheet); import a JSON backup to restore |
+| 🔄 Sync (sync code) | Create a 6-character sync code to open the full dataset on another device; loading from a code replaces the local data (after a confirm). localStorage stays the local cache — every change still saves locally first |
 | 🌐 Urdu / English toggle | Full UI switch, default **Urdu** (RTL), English (LTR) |
 | 🔒 Offline & private | Everything in `localStorage`; works with no internet; a clear note in the app says data stays on the device |
 | 🎁 Demo data | One tap loads clearly-labelled realistic demo data (Nov 2026, Rs amounts); removable from Settings without touching your own data |
@@ -42,6 +43,19 @@ No build step, no install, no server needed.
 
 > **Try the demo (verified numbers):** load demo data, switch the month to **2026-11**, and you will see income Rs 100,000, expenses Rs 25,800, bills Rs 41,400, balance Rs 32,800, a prediction for electricity (Rs 9,133), a meter comparison (250 units, ~Rs 8,750 at Rs 35/unit), two savings goals, and 4 bill reminders.
 
+## 🔄 Sync / دوسرے آلے پر کھولیں
+
+Data lives in localStorage on one device — the sync code is the bridge to another device. No account, no password.
+
+1. On the device that **has** the data, open **🔄 Sync** and press **"سنک کوڈ بنائیں / Create Sync Code"**. A 6-character code appears (e.g. `K7Q2XA`) and the full dataset — all months, bills, meter readings (including photos), goals, members, recurring expenses and settings — is saved on the server under that code.
+2. On the **other** device, open the same section, type the code and press **"کوڈ سے ڈیٹا لادیں / Load Data from Code"**. The app asks for confirmation first, because loading **replaces** that device's data with the synced data.
+3. The section shows the last-synced time and an honest status line ("Sync code created ✓", "That code was not found", "Could not reach the server").
+
+Notes:
+- The code is the only key — anyone with the code can load the data, so share it only with family, e.g. by reading it aloud or in a private message. Codes use an easy-to-read alphabet (no 0/O/1/I/L).
+- After loading on the second device, that device has its own local copy; later changes on one device do **not** automatically appear on the other — create a fresh code from the device with the newest data and load it on the other one.
+- The server store is configured in `config.js` as `APP_CONFIG = { bucket, prefix: "pt:", apiBase: "" }`. With `apiBase` empty the app talks to KVdb directly; set it to the self-hosted backend URL later and the same code talks to that instead.
+
 ## 📱 How to use (in 30 seconds)
 
 1. Pick the month at the top.
@@ -53,9 +67,9 @@ No build step, no install, no server needed.
 
 ## 🛠️ Tech
 
-- Single-page static app: `index.html` + `styles.css` + `app.js`
+- Single-page static app: `index.html` + `styles.css` + `app.js` (+ `config.js` for the server store, `store.js` for the KVStore data layer)
 - Vanilla JS only — no frameworks, no CDN, no build step
-- Storage: `localStorage` key `parentsExpenseTracker.v1` (meter photos are down-scaled to max 800px JPEG before storing, so storage stays small)
+- Storage: `localStorage` key `parentsExpenseTracker.v1` (meter photos are down-scaled to max 800px JPEG before storing, so storage stays small); sync copies the same state to KVdb under a 6-character code (`config.js` → `APP_CONFIG`, prefix `pt:`)
 - Charts: plain CSS bar chart + `conic-gradient` donut — nothing to break offline
 
 ## 📁 Files
@@ -64,7 +78,11 @@ No build step, no install, no server needed.
 parents-expense-tracker/
 ├── index.html    # App UI (Urdu default, RTL)
 ├── styles.css    # Premium, large-text, responsive styling
-├── app.js        # All logic: i18n, CRUD, prediction, meter math, export/import
+├── config.js     # Server store config (APP_CONFIG: bucket, prefix, apiBase)
+├── store.js      # KVStore: PUT/GET/DELETE against KVdb or apiBase
+├── app.js        # All logic: i18n, CRUD, prediction, meter math, export/import, sync
+├── test-store.js # Node tests against a local mock KVdb server (see TEST-LOG.md)
+├── TEST-LOG.md   # Test results
 ├── README.md     # This file
 ├── LICENSE       # MIT
 └── .gitignore
@@ -79,8 +97,8 @@ parents-expense-tracker/
 
 ## ⚠️ Notes
 
-- Data lives in the browser's localStorage on **one device** — it does not sync between devices. Use **Export JSON** to move it to another device (Import JSON there).
-- Clearing browser data for this site will erase the app's data — keep a JSON backup.
+- Data lives in the browser's localStorage on **one device** — use **🔄 Sync** (sync code) or **Export JSON** to move it to another device.
+- Clearing browser data for this site will erase the app's data — keep a JSON backup, or a sync code from the device with the newest data.
 - Demo data is removed by id (tracked when loaded), so your own entries are never deleted by "Remove Demo Data".
 
 ## 📄 License
